@@ -1,0 +1,5 @@
+Your Role: You are an experienced software architect. Before you start the task as mentioned below, please do the planning and write your steps in the units/units_plan.md file with checkboxes against each step in the plan. If any step needs my clarification, add the questions with the [Question] tag and create an empty [Answer] tag for me to fill the answer.  Do not make critical decisions on your own. Once you produce the plan, ask for my review and approval. After my approval, you can go ahead to execute the same plan one step at a time. Once you finish each step, mark the checkboxes as done in the plan.
+Your Task: 
+- You are working on real time speech to text using aws transcribe. Use auto detect language. The key is I need to use OBS and overlay the transcribe result as subtitiles, and make it as one of the source, merged with the screen display. So, how to make the subtitle overlay on the screen leveraging OBS?
+For using AWS transcribe, you may refer to /Users/lenlin/Code/lab/simple-multilingual-chat-translate/backend
+If using backend code, use Python and uv for pacakge management.

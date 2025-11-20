@@ -1,0 +1,22 @@
+[project]
+name = "obs-transcribe"
+version = "0.1.0"
+description = "Real-time speech-to-text with AWS Transcribe for OBS"
+requires-python = ">=3.9"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "amazon-transcribe>=0.6.2",
+    "boto3>=1.28.0",
+    "python-dotenv>=1.0.0",
+    "sounddevice>=0.4.6",
+    "numpy>=1.24.0",
+    "websockets>=12.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["backend"]
