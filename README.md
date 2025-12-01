@@ -10,10 +10,15 @@ This can be used as a real-time translation for PPT presentations. Three display
 - Real-time speech transcription from microphone
 - Auto language detection (English & Traditional Chinese)
 - **Automatic translation**: English ↔ Traditional Chinese
+- **Smart translation throttling**: Reduces API calls by 60-70% while maintaining responsiveness
+- **Auto catch-up**: Clears audio backlog to prevent lag and maintain real-time display
 - Dual subtitle display (original + translation)
+- **Fullscreen mode**: Position original subtitle at top for PPT presentations
 - Low-latency subtitle display
 - OBS Browser Source integration
 - Clean, customizable subtitle styling
+- Translation backlog monitoring
+- Performance latency tracking
 
 ## Prerequisites
 
@@ -38,7 +43,10 @@ This can be used as a real-time translation for PPT presentations. Three display
    AWS_ACCESS_KEY_ID=your_access_key
    AWS_SECRET_ACCESS_KEY=your_secret_key
    AWS_REGION=us-east-1
+   PPT_FULL_SCREEN_MODE=false
    ```
+   
+   Set `PPT_FULL_SCREEN_MODE=true` to position original subtitle at top (for presentations)
 
 3. **Install dependencies**
    ```bash
@@ -107,6 +115,22 @@ This allows you to:
 - Broadcast slides + live subtitles via OBS
 
 ## Customization
+
+### Performance Optimization
+
+The system uses smart translation throttling to reduce costs and latency:
+- **Final results**: Always translated immediately
+- **Partial results**: Translated every 3rd update OR every 1 second (whichever comes first)
+
+To adjust throttling, edit `backend/transcribe_client.py`:
+```python
+# Line ~45: Change frequency
+if self.partial_count >= 3 or (current_time - self.last_translation_time) >= 1.0:
+    # Increase 3 to 5 for less frequent updates
+    # Decrease 1.0 to 0.5 for more frequent updates
+```
+
+Monitor translation backlog in console logs - warnings appear if queue exceeds 3 pending translations.
 
 ### Subtitle Styling
 

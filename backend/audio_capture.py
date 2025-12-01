@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AudioCapture:
-    def __init__(self, sample_rate=16000, channels=1, chunk_size=1024):
+    def __init__(self, sample_rate=16000, channels=1, chunk_size=2048):
         self.sample_rate = sample_rate
         self.channels = channels
         self.chunk_size = chunk_size

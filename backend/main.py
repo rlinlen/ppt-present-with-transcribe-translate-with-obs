@@ -22,6 +22,12 @@ app.mount("/static", StaticFiles(directory=str(frontend_path)), name="static")
 async def root():
     return FileResponse(str(frontend_path / "subtitles.html"))
 
+@app.get("/config")
+async def config():
+    return {
+        "fullscreen_mode": os.getenv("PPT_FULL_SCREEN_MODE", "false").lower() == "true"
+    }
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     await websocket.accept()
@@ -38,7 +44,7 @@ async def websocket_endpoint(websocket: WebSocket):
             try:
                 await websocket.send_json(result)
             except Exception as e:
-                logger.error(f"Error sending to websocket: {e}")
+                logger.debug(f"Error sending to websocket: {e}")
     
     async def process_audio():
         try:
@@ -50,6 +56,17 @@ async def websocket_endpoint(websocket: WebSocket):
         while is_connected:
             try:
                 audio_chunk = await audio_queue.get()
+                queue_size = audio_queue.qsize()
+                if queue_size > 3:
+                    logger.warning(f"Audio queue backlog: {queue_size} pending - clearing queue")
+                    cleared = 0
+                    while not audio_queue.empty():
+                        try:
+                            audio_queue.get_nowait()
+                            cleared += 1
+                        except asyncio.QueueEmpty:
+                            break
+                    logger.warning(f"Cleared {cleared} audio chunks to prevent lag")
                 await transcribe_client.send_audio(audio_chunk)
             except Exception as e:
                 logger.error(f"Error sending audio: {e}")

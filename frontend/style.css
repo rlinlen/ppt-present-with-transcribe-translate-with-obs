@@ -22,11 +22,26 @@ body {
     padding: 0 20px;
 }
 
+body.fullscreen-mode #subtitle-container {
+    bottom: auto;
+    top: 50px;
+}
+
+body.fullscreen-mode #subtitle-original {
+    max-height: 40vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+body.fullscreen-mode #subtitle-original::-webkit-scrollbar {
+    display: none;
+}
+
 #subtitle-original,
 #subtitle-translation {
     background: rgba(0, 0, 0, 0.75);
     color: white;
-    font-size: 32px;
+    font-size: 38px;
     font-weight: bold;
     padding: 15px 30px;
     border-radius: 8px;
@@ -36,14 +51,29 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     transition: opacity 0.3s ease;
     min-height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    word-wrap: break-word;
 }
 
 #subtitle-translation {
-    font-size: 28px;
+    font-size: 38px;
     background: rgba(0, 50, 100, 0.75);
+    max-width: 95%;
+}
+
+body.fullscreen-mode #subtitle-translation {
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    max-width: none;
+    max-height: 40vh;
+    text-align: left;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+body.fullscreen-mode #subtitle-translation::-webkit-scrollbar {
+    display: none;
 }
 
 #subtitle-original:empty,
