@@ -1,4 +1,4 @@
-# OBS Real-Time Transcription with AWS Transcribe
+# Presentation(PPT) Real-Time Transcription with AWS Transcribe
 
 Real-time speech-to-text system using AWS Transcribe with automatic language detection (English & Traditional Chinese), displaying transcribed text as subtitles in OBS.
 This can be used as a real-time translation for PPT presentations. Three display screens are suggested (laptop + 2 external).
