@@ -124,7 +124,7 @@ class TranscribeClient:
             'identify_multiple_languages': True,
             'language_options': language_options,
             'enable_partial_results_stabilization': True,
-            'partial_results_stability': 'high'
+            'partial_results_stability': 'low'
         }
         
         self.stream = await self.client.start_stream_transcription(**stream_params)
